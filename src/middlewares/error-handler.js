@@ -1,5 +1,5 @@
 import NotFoundError from "../errors/not-found-error.js";
-
+import BadRequestError from "../errors/bad-request-error.js";
 
 export default function errorHandler(err, req, res, next) {
 
@@ -8,6 +8,10 @@ export default function errorHandler(err, req, res, next) {
         return res.status(err.statusCode).send({errors: err.serializeErrors()});
     }
 
+    // BadRequestError
+    if (err instanceof BadRequestError) {
+        return res.status(err.statusCode).send({errors: err.serializeErrors()});
+    }
 
 
     
